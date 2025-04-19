@@ -126,3 +126,34 @@ spec:
       target:
         type: Utilization
         averageUtilization: 50
+
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: twitch-deploy-role
+  namespace: twitch
+rules:
+  - apiGroups: ["*"]
+    resources: ["*"]
+    verbs: ["get", "list", "watch","create", "update", "delete"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: twitch-deploy-rolebinding
+  namespace: twitch
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: twitch-deploy-role
+subjects:
+  - kind: User
+    name: jane
+    apiGroup: rbac.authorization.k8s.io
+
+
+
+
+
